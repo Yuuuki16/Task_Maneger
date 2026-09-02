@@ -21,19 +21,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc
-
-      - name: Setup npm
-        run: npm install --global npm@11.4.2
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
 
       - name: Install dependencies
-        run: npm ci
+        run: bun install --frozen-lockfile
 
       - name: Run lint
-        run: npm run lint
+        run: bunx biome lint .
 
   format:
     name: Format
@@ -43,19 +38,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc
-
-      - name: Setup npm
-        run: npm install --global npm@11.4.2
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
 
       - name: Install dependencies
-        run: npm ci
+        run: bun install --frozen-lockfile
 
       - name: Run format check
-        run: npm run format:check
+        run: bunx biome format .
 
   # openapi:
   #   name: OpenAPI
@@ -65,20 +55,14 @@ jobs:
   #     - name: Checkout
   #       uses: actions/checkout@v4
 
-  #     - name: Setup Node.js
-  #       uses: actions/setup-node@v4
-  #       with:
-  #         node-version-file: .nvmrc
-  #         cache: npm
-
-  #     - name: Setup npm
-  #       run: npm install --global npm@11.4.2
+  #     - name: Setup Bun
+  #       uses: oven-sh/setup-bun@v2
 
   #     - name: Install dependencies
-  #       run: npm ci
+  #       run: bun install --frozen-lockfile
 
   #     - name: Validate OpenAPI
-  #       run: npm run openapi:validate
+  #       run: bun run openapi:validate
 
   unit-test:
     name: Unit Test
@@ -88,16 +72,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc
-
-      - name: Setup npm
-        run: npm install --global npm@11.4.2
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
 
       - name: Install dependencies
-        run: npm ci
+        run: bun install --frozen-lockfile
 
       - name: Run unit tests
-        run: npm test
+        run: bun test
